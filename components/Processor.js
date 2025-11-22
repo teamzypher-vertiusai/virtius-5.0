@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import * as tf from '@tensorflow/tfjs';
 
@@ -12,11 +12,9 @@ export default function Processor() {
 
     const addLog = (msg) => setLogs(prev => [...prev, `> ${msg}`]);
 
-    useEffect(() => {
-        processImage();
-    }, []);
+    const processImage = useCallback(async () => {
+        if (typeof window === 'undefined') return;
 
-    const processImage = async () => {
         const src = localStorage.getItem('source_image');
         if (!src) {
             router.push('/upload');
@@ -241,7 +239,11 @@ export default function Processor() {
                 router.push('/result');
             }, 1000);
         };
-    };
+    }, [router, addLog]);
+
+    useEffect(() => {
+        processImage();
+    }, [processImage]);
 
     return (
         <div className="glass-panel" style={{ width: '100%', maxWidth: '800px', margin: '0 auto' }}>

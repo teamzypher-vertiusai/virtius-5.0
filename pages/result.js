@@ -8,15 +8,17 @@ export default function Result() {
     const [hash, setHash] = useState('');
 
     useEffect(() => {
-        const img = localStorage.getItem('processed_image');
-        const h = localStorage.getItem('image_hash');
-        if (!img) {
-            router.push('/upload');
-        } else {
-            setImage(img);
-            setHash(h);
+        if (typeof window !== 'undefined') {
+            const img = localStorage.getItem('processed_image');
+            const h = localStorage.getItem('image_hash');
+            if (!img) {
+                router.push('/upload');
+            } else {
+                setImage(img);
+                setHash(h);
+            }
         }
-    }, []);
+    }, [router]);
 
     const handleDownload = () => {
         const link = document.createElement('a');

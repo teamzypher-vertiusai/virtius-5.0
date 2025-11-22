@@ -12,7 +12,9 @@ export default function Login() {
 
         // Fake auth delay
         setTimeout(() => {
-            localStorage.setItem('auth_token', 'fake_jwt_' + Date.now());
+            if (typeof window !== 'undefined') {
+                localStorage.setItem('auth_token', 'fake_jwt_' + Date.now());
+            }
             router.push('/upload');
         }, 1000);
     };

@@ -7,10 +7,10 @@ export default function UploadPage() {
     const router = useRouter();
 
     useEffect(() => {
-        if (!localStorage.getItem('auth_token')) {
+        if (typeof window !== 'undefined' && !localStorage.getItem('auth_token')) {
             router.push('/login');
         }
-    }, []);
+    }, [router]);
 
     return (
         <Layout title="Upload // Crypto-AI">

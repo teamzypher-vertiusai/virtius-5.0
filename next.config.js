@@ -1,17 +1,18 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
+  distDir: 'out',
   trailingSlash: true,
   images: {
     unoptimized: true,
   },
-  // Disable features incompatible with static export
   eslint: {
     ignoreDuringBuilds: true,
   },
   typescript: {
     ignoreBuildErrors: true,
   },
+  reactStrictMode: true,
 };
 
 module.exports = nextConfig;
